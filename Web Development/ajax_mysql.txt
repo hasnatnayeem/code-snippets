@@ -23,13 +23,11 @@
     }
 </script>
 
-
-/* 
+/*
     The PHP file to process the request coming through AJAX
 */
 
 <?php
-
     $con = mysqli_connect("localhost","root","","stall");
 
     if (mysqli_connect_errno())

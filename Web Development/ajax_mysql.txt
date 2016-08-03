@@ -1,3 +1,5 @@
+// Array Version starts
+
 <script>
     function search()
     {
@@ -23,6 +25,9 @@
     }
 </script>
 
+
+
+
 /*
     The PHP file to process the request coming through AJAX
 */
@@ -43,3 +48,58 @@
     mysqli_close($con);
     echo json_encode($rows);
  ?>
+ 
+ // Array Version Ends
+ 
+ 
+ 
+ 
+  // Single Row Version Starts
+  
+  <script>
+		    function search()
+		    {
+		        var str = document.getElementById("str").value;		        
+		        if (str.length != 0)
+                {
+                   var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                              var data = JSON.parse(xmlhttp.responseText);
+                                                        
+                              document.getElementById("title").innerHTML = data.title;
+                              document.getElementById("product_name").innerHTML = data.product_name;
+                              document.getElementById("seller").innerHTML = data.seller;
+                              document.getElementById("price").innerHTML = data.price;                          
+                         }
+                      
+                    };
+                    xmlhttp.open("GET", "show.php?id=" + str, true);
+                    xmlhttp.send();
+                }
+		    }
+		</script>
+		
+		
+		
+	<?php
+
+		$con = mysqli_connect("localhost","root","","stall");
+
+				if (mysqli_connect_errno()) {
+				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+				}
+
+				$result = mysqli_query($con, "SELECT * FROM product where id = " . $_GET['id']);
+
+    $row = array();
+
+    while($r = mysqli_fetch_array($result)) {
+      $row = $r;
+    }
+
+    mysqli_close($con);
+    echo json_encode($row);
+ ?>
+ 
+ // Single Row Version Ends

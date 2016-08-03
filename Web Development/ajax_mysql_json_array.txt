@@ -1,0 +1,51 @@
+<script>
+    function search()
+    {
+        var str = document.getElementById("str").value;             
+        if (str.length != 0)
+        {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+                {
+                    var data = JSON.parse(xmlhttp.responseText);
+
+                    document.getElementById("title").innerHTML = data[0].title;
+                    document.getElementById("product_name").innerHTML = data[0].product_name;
+                    document.getElementById("seller").innerHTML = data[0].seller;
+                    document.getElementById("price").innerHTML = data[0].price;                          
+                }                      
+            };
+            xmlhttp.open("GET", "show.php?id=" + str, true);
+            xmlhttp.send();
+        }
+    }
+</script>
+
+
+
+
+/*
+    The PHP file to process the request coming through AJAX
+*/
+
+<?php
+    $con = mysqli_connect("localhost","root","","stall");
+
+    if (mysqli_connect_errno())
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+
+    $result = mysqli_query($con, "SELECT * FROM product where id = " . $_GET['id']);
+
+    $rows = array();
+
+    while($row = mysqli_fetch_array($result))
+        $rows[] = $row;
+
+    mysqli_close($con);
+    echo json_encode($rows);
+ ?>
+ 
+ 
+ 

@@ -1,4 +1,4 @@
-public  static final String  toBanglaDigit(String number){
+public  static final String toBanglaDigit(String number){
     if(number==null)
         return new String("");
     StringBuilder builder = new StringBuilder();

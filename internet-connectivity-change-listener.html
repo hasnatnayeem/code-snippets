@@ -1,0 +1,25 @@
+<h1>Turn off internet connection to see the effect</h1>
+<p id = "online">This is the <b>online</b> page content</p>
+<p id = "offline">This is the <b>offline</b> page content</p>
+
+
+<style>
+    #offline {
+        display: none;
+    }
+</style>
+<script>
+window.addEventListener("online", goOnline);
+window.addEventListener("offline",goOffline);
+
+function goOnline() {
+    document.getElementById("online").style.display = "block";
+    document.getElementById("offline").style.display = "none";
+}
+
+function goOffline() {
+    document.getElementById("online").style.display = "none";
+    document.getElementById("offline").style.display = "block";
+}
+
+</script>
